@@ -1,0 +1,1863 @@
+/* ============================================================
+   AJEDREZ — styles.css
+   Primera versión visual / estructural.
+   Diseñado primero para iPhone/iPad pequeño y navegadores antiguos.
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #111827;
+  color: #f5f5f5;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  min-height: 100%;
+  touch-action: manipulation;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  border: 0;
+  cursor: pointer;
+}
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+}
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+/* ============================================================
+   PANTALLAS
+   ============================================================ */
+.screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: none;
+  overflow: hidden;
+}
+.screen.active {
+  display: flex;
+}
+/* ============================================================
+   HOME
+   ============================================================ */
+#screen-home {
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #263449 0%, #111827 65%);
+}
+.home-panel {
+  width: min(92%, 560px);
+  text-align: center;
+}
+.app-brand {
+  margin-bottom: 38px;
+}
+.brand-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+  border: 2px solid #6b7280;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  background: #182235;
+}
+.app-brand h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 5px;
+}
+.app-brand p {
+  margin: 8px 0 0;
+  color: #aeb8c7;
+  font-size: 15px;
+}
+.home-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.main-option {
+  min-height: 125px;
+  padding: 20px;
+  border: 1px solid #374151;
+  border-radius: 16px;
+  background: #1b2638;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.main-option:active {
+  transform: scale(0.98);
+  background: #253247;
+}
+.option-icon {
+  font-size: 34px;
+}
+.main-option strong {
+  display: block;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+.main-option small {
+  display: block;
+  margin-top: 4px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+.compatibility-note {
+  margin-top: 30px;
+  color: #6b7280;
+  font-size: 11px;
+}
+/* ============================================================
+   HEADER
+   ============================================================ */
+.screen-header {
+  height: 68px;
+  min-height: 68px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #151f2f;
+  border-bottom: 1px solid #2d394b;
+}
+.screen-header h2 {
+  margin: 2px 0 0;
+  font-size: 22px;
+}
+.eyebrow {
+  color: #8f9bad;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.btn-home {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: 10px;
+  background: #273449;
+  color: #fff;
+  font-size: 27px;
+  line-height: 44px;
+}
+.btn-home:active {
+  background: #35445b;
+}
+/* ============================================================
+   CONFIGURACIÓN
+   ============================================================ */
+#screen-clock-config,
+#screen-score-config {
+  flex-direction: column;
+  background: #0f1724;
+}
+.config-content {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 14px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.config-card {
+  margin-bottom: 12px;
+  padding: 15px;
+  border: 1px solid #303d50;
+  border-radius: 13px;
+  background: #172235;
+}
+.config-card2 {
+  margin-bottom: 12px;
+  padding: 15px;
+  border: 1px solid #303d50;
+  border-radius: 13px;
+  background: #000c22;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.section-title > span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #34445d;
+  color: #dbe3ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+.section-title h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.time-inputs {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 7px;
+}
+.time-inputs label {
+  width: 82px;
+}
+.time-inputs label > span,
+.mini-grid label > span,
+.player-fields label > span {
+  display: block;
+  margin-bottom: 10px; /* Más espacio entre el título del campo y la casilla de texto */
+  color: #9ca8b9;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.time-inputs input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #445269;
+  border-radius: 9px;
+  background: #0f1724;
+  color: #fff;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+.time-colon {
+  padding-bottom: 12px;
+  font-size: 23px;
+  color: #758196;
+}
+.field-help {
+  margin: 9px 0 0;
+  text-align: center;
+  color: #758196;
+  font-size: 10px;
+}
+.mode-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.mode-option {
+  position: relative;
+}
+.mode-option input {
+  position: absolute;
+  opacity: 0;
+}
+.mode-box {
+  min-height: 70px;
+  padding: 12px;
+  border: 1px solid #3c485b;
+  border-radius: 10px;
+  display: block;
+  background: #121b2a;
+}
+.mode-option input:checked + .mode-box {
+  border-color: #8ea3bd;
+  background: #243249;
+}
+.mode-box strong {
+  display: block;
+  font-size: 14px;
+}
+.mode-box small {
+  display: block;
+  margin-top: 6px;
+  color: #8f9bad;
+  font-size: 10px;
+  line-height: 1.3;
+}
+.toggle-row {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.toggle-row strong {
+  display: block;
+  font-size: 13px;
+}
+.toggle-row small {
+  display: block;
+  margin-top: 3px;
+  color: #8793a5;
+  font-size: 10px;
+}
+.toggle-row input {
+  position: relative;
+  width: 48px;
+  height: 27px;
+  flex: 0 0 48px;
+  border-radius: 20px;
+  background: #4b5563;
+}
+.toggle-row input:checked {
+  background: #64748b;
+}
+.toggle-row input:after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+}
+.toggle-row input:checked:after {
+  left: 25px;
+}
+.increment-panel {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #2e3a4c;
+}
+.mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.mini-grid input,
+.mini-grid select,
+.player-fields input {
+  width: 100%;
+  height: 43px;
+  border: 1px solid #3f4c61;
+  border-radius: 8px;
+  padding: 0 10px;
+  background: #0f1724;
+  color: #fff;
+  font-size: 14px;
+}
+.primary-button {
+  width: 100%;
+  min-height: 50px;
+  margin: 4px 0 10px;
+  border-radius: 10px;
+  background: #d6dbe2;
+  color: #111827;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+}
+.primary-button:active {
+  transform: scale(0.99);
+  background: #fff;
+}
+.primary-button.compact {
+  width: auto;
+  min-width: 100px;
+  margin: 0;
+  min-height: 42px;
+}
+.secondary-button {
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid #46546a;
+  border-radius: 9px;
+  background: #1b2739;
+  color: #e5e7eb;
+  font-size: 11px;
+}
+/* ============================================================
+   RELOJ
+   ============================================================ */
+.clock-screen {
+  flex-direction: column;
+  background: #080d15;
+}
+.clock-chart {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.player-zone {
+  position: relative;
+  z-index: 2;
+  height: 43%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.player-top {
+  transform: rotate(180deg);
+  background: rgba(24, 34, 49, 0.88);
+}
+.player-bottom {
+  background: rgba(15, 23, 36, 0.88);
+}
+.player-zone.active-turn {
+  background: rgba(41, 55, 76, 0.92);
+}
+.player-info {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #8490a3;
+}
+.turn-status {
+  color: #bac4d2;
+}
+.clock-display {
+  text-align: center;
+  position: relative;
+}
+.total-time {
+  font-family: "Courier New", monospace;
+  font-size: clamp(42px, 9vw, 82px);
+  line-height: 1;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px #000;
+}
+.move-time {
+  margin-top: 7px;
+  color: #9ba7b8;
+  font-family: "Courier New", monospace;
+  font-size: clamp(18px, 3vw, 28px);
+}
+.clock-controls {
+  position: relative;
+  z-index: 5;
+  height: 62px;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(12, 18, 28, 0.96);
+  border-top: 1px solid #273347;
+  border-bottom: 1px solid #273347;
+}
+.clock-control {
+  width: 47px;
+  height: 43px;
+  border-radius: 9px;
+  background: #273449;
+  color: #f2f4f7;
+  font-size: 17px;
+}
+.clock-control:active {
+  background: #3a4a62;
+}
+.clock-control.play {
+  background: #d6dbe2;
+  color: #111827;
+}
+.clock-control.finish {
+  background: #542e34;
+}
+.manual-bonus {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 69px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+.bonus-button {
+  width: 40px;
+  height: 32px;
+  border: 1px solid #64748b;
+  border-radius: 7px;
+  background: rgba(26, 38, 55, 0.92);
+  color: #fff;
+  font-size: 12px;
+}
+.bonus-button:active {
+  background: #4b5d75;
+}
+.bonus-flash {
+  position: absolute;
+  z-index: 3;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: rgba(45, 130, 70, 0.9);
+  color: #fff;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+}
+.bonus-flash.show {
+  opacity: 1;
+}
+.floating-message {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80%, 360px);
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(221, 167, 45, 0.97);
+  color: #111827;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+.timeout-overlay {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(110, 20, 28, 0.94);
+  text-align: center;
+}
+.timeout-overlay div {
+  font-size: clamp(48px, 13vw, 100px);
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+.timeout-overlay small {
+  margin-top: 10px;
+  font-size: 15px;
+}
+.clock-home {
+  position: absolute;
+  z-index: 30;
+  top: 8px;
+  left: 8px;
+  opacity: 0.8;
+}
+.hidden {
+  display: none !important;
+}
+/* ============================================================
+   ANOTADOR
+   ============================================================ */
+#screen-score-config {
+  flex-direction: column;
+}
+.match-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 13px;
+}
+.match-number {
+  height: 39px;
+  border: 1px solid #3e4a5e;
+  border-radius: 7px;
+  background: #101927;
+  color: #9ca8b8;
+}
+.match-number.active {
+  background: #34445b;
+  color: #fff;
+}
+.player-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 12px;
+  margin-top: 10px;
+}
+.player-fields label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px; /* Aumenta la distancia vertical hacia el siguiente grupo */
+}
+.score-screen {
+  flex-direction: column;
+  background: #111827;
+}
+.score-header {
+  position: relative;
+  z-index: 4;
+  height: 54px;
+  min-height: 54px;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #151f2f;
+}
+.score-game-selector {
+  display: flex;
+  gap: 5px;
+}
+.score-game {
+  width: 44px;
+  height: 35px;
+  border-radius: 7px;
+  background: #263449;
+  color: #b7c0ce;
+  font-size: 11px;
+}
+.score-game.active {
+  background: #d6dbe2;
+  color: #111827;
+}
+.score-clock {
+  text-align: center;
+  padding: 7px;
+  background: #0c1420;
+  border-bottom: 1px solid #29364a;
+  font-family: "Courier New", monospace;
+}
+.score-clock div {
+  font-size: 25px;
+  font-weight: bold;
+}
+.score-clock span {
+  color: #8995a7;
+  font-size: 13px;
+}
+.notation-preview {
+  height: 40px;
+  min-height: 40px;
+  margin: 6px 8px;
+  border: 1px solid #3a4659;
+  border-radius: 7px;
+  background: #0b1320;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", monospace;
+  font-size: 17px;
+}
+.piece-row,
+.action-row {
+  display: grid;
+  gap: 5px;
+  padding: 4px 8px;
+}
+.piece-row {
+  grid-template-columns: repeat(6, 1fr);
+}
+.action-row {
+  grid-template-columns: repeat(5, 1fr);
+}
+.piece-row button,
+.action-row button {
+  height: 35px;
+  border-radius: 6px;
+  background: #263449;
+  color: #f3f4f6;
+  font-size: 15px;
+}
+.action-row button {
+  font-size: 11px;
+}
+.board-selector {
+  display: flex;
+  justify-content: center;
+  padding: 5px 8px;
+}
+.board-row-label {
+  display: none;
+}
+.board-grid {
+  width: min(82vw, 430px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border: 1px solid rgb(80, 200, 120);
+}
+.board-grid button {
+  border-radius: 0;
+  background: rgb(80, 200, 120);
+  color: black;
+  font-size: clamp(8px, 2vw, 12px);
+}
+.board-grid button:nth-child(16n + 1),
+.board-grid button:nth-child(16n + 3),
+.board-grid button:nth-child(16n + 5),
+.board-grid button:nth-child(16n + 7),
+.board-grid button:nth-child(16n + 10),
+.board-grid button:nth-child(16n + 12),
+.board-grid button:nth-child(16n + 14),
+.board-grid button:nth-child(16n + 16) {
+  background: white;
+  color: black;
+}
+.score-actions {
+  margin-top: auto;
+  padding: 7px 8px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  background: #121b29;
+  border-top: 1px solid #2b374a;
+}
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .home-actions {
+    grid-template-columns: 1fr;
+  }
+  .main-option {
+    min-height: 90px;
+    flex-direction: row;
+  }
+  .app-brand {
+    margin-bottom: 25px;
+  }
+  .config-content {
+    padding: 9px;
+  }
+  .config-card {
+    padding: 11px;
+    margin-bottom: 8px;
+  }
+  .config-card2 {
+    padding: 11px;
+    margin-bottom: 8px;
+    border-radius: 13px;
+    background: #000c22;
+  }
+  .section-title {
+    margin-bottom: 9px;
+  }
+  .total-time {
+    font-size: 45px;
+  }
+  .manual-bonus {
+    bottom: 67px;
+  }
+}
+@media (min-width: 700px) {
+  .config-content {
+    padding: 18px;
+  }
+  .config-card {
+    padding: 18px;
+  }
+  .config-card2 {
+    padding: 11px;
+    margin-bottom: 8px;
+    border-radius: 13px;
+    background: #000c22;
+  }
+  .total-time {
+    font-size: 72px;
+  }
+  .clock-controls {
+    height: 70px;
+    min-height: 70px;
+  }
+  .clock-control {
+    width: 52px;
+    height: 48px;
+  }
+}
+/* ============================================================
+   iOS 9 / SAFARI
+   ============================================================ */
+@supports (-webkit-overflow-scrolling: touch) {
+  .config-content {
+    -webkit-overflow-scrolling: touch;
+  }
+  input,
+  select,
+  button {
+    border-radius: 8px;
+  }
+}
+/* =========================================================
+   CAMPOS CON FLECHA — MISMO ASPECTO QUE LOS CAMPOS DE TEXTO
+   ========================================================= */
+.player-nationality,
+#cfg-competition-type {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgb(15, 23, 36);
+  color: inherit;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  min-height: 42px;
+}
+/*
+ * Evita que el select quede con el aspecto
+ * blanco extraño del navegador.
+ */
+.player-nationality:focus,
+#cfg-competition-type:focus {
+  outline: none;
+}
+/*
+ * En pantallas táctiles dejamos el selector
+ * nativo del sistema.
+ *
+ * Esto es importante para iOS 9:
+ * al tocar el campo, Safari puede mostrar
+ * su selector desplazable tipo "ruedita".
+ */
+.player-nationality,
+#cfg-competition-type {
+  -webkit-appearance: menulist;
+  appearance: menulist;
+}
+/* =====================================================================
+   PANTALLA CONFIGURACION DE TIEMPO INICIAL — JUGADOR 1 / JUGADOR 2
+   ===================================================================== */
+/* =========================================================
+   TIEMPO INICIAL
+   ========================================================= */
+.player-time-block {
+  margin-bottom: 20px;
+}
+.player-time-name {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+.time-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(55px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 260px;
+  box-sizing: border-box;
+}
+.time-inputs label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+.time-inputs label span {
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+.time-inputs input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+/*==================================================================
+RESPONSIVE CARGA DE TIEMPOS PARA EL RELOJ - NO PARA EL ANOTADOR
+==================================================================*/
+@media (max-width: 480px) {
+  .time-inputs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    max-width: 100%;
+  }
+  .time-inputs input {
+    width: 100%;
+    min-width: 0;
+  }
+}
+/*======
+FIN
+=====*/
+.player-time-name {
+  font-weight: 600;
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+/* ============================================================
+   PARTE 3 — ESTADOS DEL RELOJ
+   ============================================================ */
+/* Estado activo del jugador */
+.player-zone.active-turn {
+  box-shadow: inset 0 0 0 2px rgba(214, 219, 226, 0.18);
+}
+/* FINISH esperando segundo clic */
+.clock-control.finish.finish-pending {
+  background: #b88928;
+  color: #ffffff;
+  animation: finish-pulse 0.45s infinite alternate;
+}
+@keyframes finish-pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.45;
+  }
+}
+/* Las zonas completas son táctiles */
+.player-zone {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* Los botones internos mantienen prioridad */
+.player-zone button {
+  position: relative;
+  z-index: 10;
+}
+/* =========================================================
+   AJEDREZ APP — PANTALLA DE RELOJ
+   Estructura:
+   ┌─────────────────────────────┐
+   │          JUGADOR 1          │
+   │                             │
+   ├─────────────────────────────┤
+   │      ZONA DE CONTROLES      │
+   ├─────────────────────────────┤
+   │          JUGADOR 2          │
+   │                             │
+   └─────────────────────────────┘
+   ========================================================= */
+/* =========================================================
+   ESTRUCTURA GENERAL
+   ========================================================= */
+#screen-clock {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+/* =========================================================
+   JUGADOR 1
+   ---------------------------------------------------------
+   P1 permanece invertido mediante .player-top.
+   ========================================================= */
+#screen-clock #zone-player-1 {
+  position: relative;
+  width: 100%;
+  height: 46%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* =========================================================
+   JUGADOR 2
+   ---------------------------------------------------------
+   P2 ocupa todo el espacio restante después de la zona
+   central de controles.
+   ========================================================= */
+#screen-clock #zone-player-2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 54%;
+  width: 100%;
+  height: 46%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* =========================================================
+   GRÁFICO
+   ---------------------------------------------------------
+   No se utiliza visualmente en la pantalla del reloj.
+   ========================================================= */
+#screen-clock #clock-chart {
+  display: none;
+}
+/* =========================================================
+   CRONÓMETRO PRINCIPAL
+   ========================================================= */
+#screen-clock .total-time {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /*
+     Tamaño controlado principalmente por la altura.
+     El ancho sigue limitado para que HH:MM:SS entre
+     correctamente en teléfonos.
+  */
+  font-size: clamp(48px, 11vh, 88px);
+  line-height: 0.9;
+  letter-spacing: 0;
+  white-space: nowrap;
+  /*
+     Aumentamos la altura visual sin aumentar
+     proporcionalmente el ancho.
+  */
+  transform: scaleY(1.18);
+  transform-origin: center center;
+}
+/* =========================================================
+   TIEMPO DEL MOVIMIENTO
+   ========================================================= */
+#screen-clock .move-time {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: clamp(18px, 3.5vh, 30px);
+  line-height: 1;
+}
+/* =========================================================
+   GRUPO DE BONOS
+   ========================================================= */
+#screen-clock .manual-bonus {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 20;
+  transform: translateX(-50%);
+}
+/* =========================================================
+   BONOS — JUGADOR 1
+   ---------------------------------------------------------
+   P1 está rotado 180°.
+   Por eso usamos bottom en el DOM:
+   después de la rotación los botones aparecen
+   visualmente ARRIBA del jugador.
+   ========================================================= */
+#screen-clock #zone-player-1 .manual-bonus {
+  top: auto;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* =========================================================
+   BONOS — JUGADOR 2
+   ---------------------------------------------------------
+   P2 está normal.
+   Los botones quedan debajo del cronómetro.
+   ========================================================= */
+#screen-clock #zone-player-2 .manual-bonus {
+  top: auto;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* =========================================================
+   BOTONES +1 / +2 / +3
+   ========================================================= */
+#screen-clock .bonus-button {
+  width: 58px;
+  min-width: 58px;
+  height: 46px;
+  min-height: 46px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+}
+/* =========================================================
+   ZONA CENTRAL DE CONTROLES
+   ---------------------------------------------------------
+   Esta zona NO pertenece a ningún jugador.
+   ========================================================= */
+#screen-clock .clock-controls {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+/* HOME especial */
+#screen-clock .clock-home-special {
+  z-index: 51;
+}
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 480px) {
+  /* ----- CRONÓMETRO ----- */
+  #screen-clock .total-time {
+    font-size: clamp(46px, 10.5vh, 78px);
+    line-height: 0.9;
+    transform: scaleY(1.18);
+    letter-spacing: 0;
+  }
+  /* ----- TIEMPO DEL MOVIMIENTO ----- */
+  #screen-clock .move-time {
+    font-size: clamp(18px, 3.5vh, 30px);
+  }
+  /* ----- BONOS ----- */
+  #screen-clock .manual-bonus {
+    gap: 5px;
+  }
+  #screen-clock .bonus-button {
+    width: 52px;
+    min-width: 52px;
+    height: 42px;
+    min-height: 42px;
+    font-size: 18px;
+  }
+  #screen-clock #zone-player-1 .manual-bonus {
+    bottom: 28px;
+  }
+  #screen-clock #zone-player-2 .manual-bonus {
+    bottom: 28px;
+  }
+  /* ----- CONTROLES ----- */
+  #screen-clock .clock-controls {
+    gap: 5px;
+  }
+}
+/* =========================================================
+   BONOS — POSICIÓN FINAL
+   ========================================================= */
+/* ---------------------------------------------------------
+   JUGADOR 1
+   ---------------------------------------------------------
+   P1 está rotado 180°.
+   Queremos que los +1 +2 +3 aparezcan VISUALMENTE
+   bien arriba de todo.
+   Como toda la zona P1 está invertida, usamos bottom.
+   --------------------------------------------------------- */
+#screen-clock #zone-player-1 .manual-bonus {
+  position: absolute;
+  top: auto;
+  bottom: 18px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  z-index: 20;
+}
+/* ---------------------------------------------------------
+   JUGADOR 2
+   ---------------------------------------------------------
+   P2 está normal.
+   Queremos los botones BIEN ABAJO.
+   --------------------------------------------------------- */
+#screen-clock #zone-player-2 .manual-bonus {
+  position: absolute;
+  top: auto;
+  bottom: 18px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  z-index: 20;
+}
+/* =========================================================
+   BOTONES +1 / +2 / +3
+   ========================================================= */
+#screen-clock .bonus-button {
+  width: 58px;
+  min-width: 58px;
+  height: 46px;
+  min-height: 46px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+}
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 480px) {
+  #screen-clock #zone-player-1 .manual-bonus {
+    bottom: 12px;
+  }
+  #screen-clock #zone-player-2 .manual-bonus {
+    bottom: 12px;
+  }
+  #screen-clock .manual-bonus {
+    gap: 5px;
+  }
+  #screen-clock .bonus-button {
+    width: 52px;
+    min-width: 52px;
+    height: 42px;
+    min-height: 42px;
+    font-size: 18px;
+  }
+}
+/* =========================================================
+   HOME — CENTRADO EN LA PANTALLA DEL RELOJ
+   ========================================================= */
+#screen-clock .btn-home[data-home] {
+  position: absolute;
+  left: 15%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* =========================================================
+   CONFIRMACIÓN — FINALIZAR PARTIDA
+   ========================================================= */
+#screen-clock #finish-confirm {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  width: min(420px, 90vw);
+  box-sizing: border-box;
+  padding: 28px 24px;
+  background: rgba(20, 25, 35, 0.97);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+/* ---------------------------------------------------------
+   CONTENIDO
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-content {
+  width: 100%;
+}
+/* ---------------------------------------------------------
+   TÍTULO
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-title {
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #ffffff;
+}
+/* ---------------------------------------------------------
+   TEXTO
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-text {
+  margin-bottom: 24px;
+  font-size: 17px;
+  line-height: 1.4;
+  color: #dddddd;
+}
+/* ---------------------------------------------------------
+   BOTONES
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+/* ---------------------------------------------------------
+   BOTONES INDIVIDUALES
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-buttons button {
+  min-width: 120px;
+  height: 48px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+/* ---------------------------------------------------------
+   CANCELAR
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-cancel {
+  background: #555555;
+  color: #ffffff;
+}
+/* ---------------------------------------------------------
+   FINALIZAR
+   --------------------------------------------------------- */
+#screen-clock .finish-confirm-ok {
+  background: #b3261e;
+  color: #ffffff;
+}
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+@media (max-width: 480px) {
+  #screen-clock #finish-confirm {
+    width: 90vw;
+    padding: 24px 18px;
+    border-radius: 14px;
+  }
+  #screen-clock .finish-confirm-title {
+    font-size: 21px;
+  }
+  #screen-clock .finish-confirm-text {
+    font-size: 16px;
+  }
+  #screen-clock .finish-confirm-buttons {
+    gap: 8px;
+  }
+  #screen-clock .finish-confirm-buttons button {
+    min-width: 0;
+    flex: 1;
+    height: 46px;
+    font-size: 15px;
+  }
+}
+/* =========================================================
+   ANOTADOR — LAYOUT MOBILE
+   ========================================================= */
+#screen-score {
+  flex-direction: column;
+  overflow: hidden;
+}
+/* ---------------------------------------------------------
+   ZONA CENTRAL
+   --------------------------------------------------------- */
+#screen-score .score-main {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  /*
+     40% planilla
+     60% controles/tablero
+  */
+  grid-template-columns: 40% minmax(0, 60%);
+  gap: 5px;
+  padding: 5px;
+  overflow: hidden;
+}
+/* ---------------------------------------------------------
+   PLANILLA
+   --------------------------------------------------------- */
+#screen-score .notation-table-container {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  max-height: none;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #3a4659;
+  border-radius: 7px;
+  background: #0b1320;
+  -webkit-overflow-scrolling: touch;
+}
+#screen-score .notation-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  border-collapse: collapse;
+}
+#screen-score .notation-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 6px 2px;
+  background: #1d293b;
+  color: #aeb8c7;
+  font-size: 9px;
+  white-space: nowrap;
+}
+#screen-score .notation-table td {
+  padding: 6px 2px;
+  border-top: 1px solid #263449;
+  color: #f3f4f6;
+  text-align: center;
+  white-space: nowrap;
+}
+#screen-score .notation-table th:nth-child(1),
+#screen-score .notation-table td:nth-child(1) {
+  width: 15%;
+}
+#screen-score .notation-table th:nth-child(2),
+#screen-score .notation-table td:nth-child(2) {
+  width: 42.5%;
+}
+#screen-score .notation-table th:nth-child(3),
+#screen-score .notation-table td:nth-child(3) {
+  width: 42.5%;
+}
+/*
+   Las duraciones pueden seguir existiendo en la tabla
+   pero no ocupan espacio en el móvil.
+*/
+#screen-score .notation-table th:nth-child(4),
+#screen-score .notation-table th:nth-child(5),
+#screen-score .notation-table td:nth-child(4),
+#screen-score .notation-table td:nth-child(5) {
+  display: none;
+}
+/* ---------------------------------------------------------
+   PANEL DERECHO
+   --------------------------------------------------------- */
+#screen-score .score-input-panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* ---------------------------------------------------------
+   PREVISUALIZACIÓN
+   --------------------------------------------------------- */
+#screen-score .notation-preview {
+  width: 100%;
+  height: 38px;
+  min-height: 38px;
+  margin: 0;
+  border: 1px solid #3a4659;
+  border-radius: 7px;
+  background: #0b1320;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+  overflow: hidden;
+}
+/* ---------------------------------------------------------
+   PIEZAS
+   --------------------------------------------------------- */
+#screen-score .piece-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 0;
+}
+#screen-score .piece-row button {
+  width: 100%;
+  height: 36px;
+  padding: 0;
+  border-radius: 6px;
+  background: #263449;
+  color: #f3f4f6;
+  font-size: 18px;
+}
+/* PIEZA SELECCIONADA */
+#screen-score .piece-row button.selected-piece {
+  background: #d6dbe2;
+  color: #111827;
+  box-shadow: 0 0 0 2px #f5c542 inset;
+}
+/* ---------------------------------------------------------
+   ACCIONES x + # + ENROQUES
+   --------------------------------------------------------- */
+#screen-score .action-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  padding: 0;
+}
+#screen-score .action-row button {
+  width: 100%;
+  height: 31px;
+  padding: 0;
+  border-radius: 6px;
+  background: #263449;
+  color: #f3f4f6;
+  font-size: 10px;
+}
+/*
+   CAPTURA ACTIVADA
+*/
+#screen-score .action-row button.capture-active {
+  background: #d6dbe2;
+  color: #111827;
+  box-shadow: 0 0 0 2px #f5c542 inset;
+}
+/* ---------------------------------------------------------
+   TABLERO
+   --------------------------------------------------------- */
+#screen-score .board-selector {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 2px;
+}
+#screen-score .board-grid {
+  /*
+     IMPORTANTE:
+     nunca supera el ancho disponible.
+  */
+  width: min(100%, 100vw);
+  max-width: none;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  border: 1px solid rgb(80, 200, 120);
+  box-sizing: border-box;
+}
+#screen-score .board-grid button {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border-radius: 0;
+  background: rgb(80, 200, 120);
+  color: black;
+  font-size: clamp(7px, 1.8vw, 12px);
+  overflow: hidden;
+}
+#screen-score .board-grid button:nth-child(16n + 1),
+#screen-score .board-grid button:nth-child(16n + 3),
+#screen-score .board-grid button:nth-child(16n + 5),
+#screen-score .board-grid button:nth-child(16n + 7),
+#screen-score .board-grid button:nth-child(16n + 10),
+#screen-score .board-grid button:nth-child(16n + 12),
+#screen-score .board-grid button:nth-child(16n + 14),
+#screen-score .board-grid button:nth-child(16n + 16) {
+  background: white;
+  color: black;
+}
+/* CASILLERO SELECCIONADO */
+#screen-score .board-grid button.selected-square {
+  outline: 3px solid #f5c542;
+  outline-offset: -3px;
+  position: relative;
+  z-index: 2;
+}
+/* ---------------------------------------------------------
+   BOTONES DE ABAJO
+   --------------------------------------------------------- */
+#screen-score .score-actions {
+  flex-shrink: 0;
+  margin-top: 0;
+  padding: 6px 7px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  background: #121b29;
+  border-top: 1px solid #2b374a;
+}
+/*
+   REVISAR / QUÉ JUEGO / CLEAR / CARGAR
+   quedan juntos a la derecha.
+*/
+#screen-score #btn-score-revisar,
+#screen-score #btn-score-que-juego,
+#screen-score #btn-score-clear,
+#screen-score #btn-score-cargar {
+  min-height: 36px;
+  flex: 0 0 auto;
+}
+/*
+   FINALIZAR:
+   queda abajo pero ocupa más ancho.
+*/
+#screen-score #btn-score-finalizar {
+  width: 100%;
+  min-height: 42px;
+  flex: 0 0 100%;
+  font-size: 13px;
+  font-weight: bold;
+}
+/* ---------------------------------------------------------
+   MARCAS
+   --------------------------------------------------------- */
+#screen-score .score-actions button.active {
+  background: #d6dbe2;
+  color: #111827;
+  border-color: #d6dbe2;
+}
+/* ---------------------------------------------------------
+   IPHONE XR / PANTALLAS ANGOSTAS
+   --------------------------------------------------------- */
+@media (max-width: 430px) {
+  #screen-score .score-main {
+    grid-template-columns: 40% minmax(0, 60%);
+    gap: 4px;
+    padding: 4px;
+  }
+  #screen-score .notation-table {
+    font-size: 10px;
+  }
+  #screen-score .notation-table th {
+    font-size: 8px;
+  }
+  #screen-score .notation-table td {
+    padding: 5px 1px;
+  }
+  #screen-score .piece-row button {
+    height: 34px;
+    font-size: 17px;
+  }
+  #screen-score .action-row button {
+    height: 29px;
+    font-size: 9px;
+  }
+  #screen-score .notation-preview {
+    height: 35px;
+    min-height: 35px;
+    font-size: 14px;
+  }
+  #screen-score .score-actions {
+    gap: 3px;
+    padding: 5px;
+  }
+  #screen-score #btn-score-revisar,
+  #screen-score #btn-score-que-juego,
+  #screen-score #btn-score-clear,
+  #screen-score #btn-score-cargar {
+    min-height: 34px;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 10px;
+  }
+}
+/* =========================================================
+   ANOTADOR — AJUSTES NUEVOS
+   ========================================================= */
+/* ---------------------------------------------------------
+   BOTONES DEBAJO DEL TABLERO
+   --------------------------------------------------------- */
+#screen-score .score-board-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+#screen-score .score-board-actions button {
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 4px 5px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+#screen-score #btn-score-desc-parcial {
+  grid-column: 1 / -1;
+}
+/* ---------------------------------------------------------
+   FINALIZAR
+   --------------------------------------------------------- */
+#screen-score .score-actions {
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: 0;
+  padding: 6px 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #121b29;
+  border-top: 1px solid #2b374a;
+}
+#screen-score #btn-score-finalizar {
+  width: 100%;
+  min-height: 42px;
+  font-size: 13px;
+  font-weight: bold;
+}
+/* ---------------------------------------------------------
+   PIEZAS +20%
+   Antes:
+   34px aprox.
+   Ahora:
+   41px
+   --------------------------------------------------------- */
+#screen-score .piece-row button {
+  height: 41px;
+  min-height: 41px;
+  font-size: 21px;
+}
+/* ---------------------------------------------------------
+   LETRA DEL TABLERO +30%
+   --------------------------------------------------------- */
+#screen-score .board-grid button {
+  font-size: clamp(9px, 2.35vw, 16px);
+}
+/* ---------------------------------------------------------
+   PLANILLA
+   --------------------------------------------------------- */
+/* Solamente:
+   MOV. | BLANCAS | NEGRAS
+   La duración queda dentro de cada jugada.
+*/
+#screen-score .notation-table th:nth-child(4),
+#screen-score .notation-table th:nth-child(5),
+#screen-score .notation-table td:nth-child(4),
+#screen-score .notation-table td:nth-child(5) {
+  display: none;
+}
+#screen-score .notation-table th:nth-child(1),
+#screen-score .notation-table td:nth-child(1) {
+  width: 15%;
+}
+#screen-score .notation-table th:nth-child(2),
+#screen-score .notation-table td:nth-child(2) {
+  width: 42.5%;
+}
+#screen-score .notation-table th:nth-child(3),
+#screen-score .notation-table td:nth-child(3) {
+  width: 42.5%;
+}
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+@media (max-width: 430px) {
+  #screen-score .piece-row button {
+    height: 41px;
+    min-height: 41px;
+    font-size: 21px;
+  }
+  #screen-score .board-grid button {
+    font-size: clamp(9px, 2.35vw, 16px);
+  }
+  #screen-score .score-board-actions {
+    gap: 3px;
+    margin-top: 3px;
+  }
+  #screen-score .score-board-actions button {
+    min-height: 35px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 9px;
+  }
+}
+/* =========================================================
+   ANOTADOR — AJUSTE PARA PANTALLAS DE POCA ALTURA
+   No modifica el ancho.
+   Compacta verticalmente los controles.
+   ========================================================= */
+#screen-score .score-board-actions {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  flex-shrink: 0;
+}
+/* Estado normal */
+#screen-score .score-board-actions button {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: 35px;
+  height: 35px;
+  padding: 3px 5px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+/* DESC. PARCIAL ocupa toda la fila */
+#screen-score #btn-score-desc-parcial {
+  grid-column: 1 / -1;
+}
+/* =========================================================
+   PANTALLA BAJA
+   iPhone SE / dispositivos con poca altura
+   ========================================================= */
+@media (max-height: 700px) {
+  #screen-score .score-board-actions {
+    gap: 2px;
+    margin-top: 1px;
+  }
+  #screen-score .score-board-actions button {
+    min-height: 28px;
+    height: 28px;
+    padding: 2px 4px;
+    font-size: 8px;
+  }
+}
+/* =========================================================
+   PANTALLA MUY BAJA
+   ========================================================= */
+@media (max-height: 620px) {
+  #screen-score .score-board-actions {
+    gap: 2px;
+  }
+  #screen-score .score-board-actions button {
+    min-height: 25px;
+    height: 25px;
+    padding: 1px 3px;
+    font-size: 7px;
+  }
+}
+/* =========================================================
+   EVITAR DESBORDE VERTICAL DEL PANEL
+   ========================================================= */
+#screen-score .score-input-panel {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#screen-score .score-main {
+  min-height: 0;
+}

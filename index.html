@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#111827" />
+    <title>Reloj & Anotador de Ajedrez</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- =========================================================
+         PANTALLA DE BIENVENIDA
+         ========================================================= -->
+      <section id="screen-home" class="screen active">
+        <div class="home-panel">
+          <div class="app-brand">
+            <div class="brand-icon">
+              <img src="./img/torre blancav2.jpg" alt="" />
+            </div>
+            <h1>AJEDREZ</h1>
+            <p>Reloj &amp; Anotador</p>
+          </div>
+          <div class="home-actions">
+            <button id="btn-open-clock" class="main-option">
+              <span class="option-icon">⏱</span>
+              <span>
+                <strong>RELOJ</strong>
+                <small>Control de tiempo</small>
+              </span>
+            </button>
+            <button id="btn-open-score" class="main-option">
+              <span class="option-icon">♜</span>
+              <span>
+                <strong>ANOTADOR</strong>
+                <small>Registrar movimientos</small>
+              </span>
+            </button>
+          </div>
+          <p class="compatibility-note">
+            Diseñado para mobile · iPad · iOS 9 · Android - por Juancelli
+          </p>
+        </div>
+      </section>
+      <!-- =========================================================
+         PANTALLA DE CONFIGURACIÓN DEL RELOJ
+         ========================================================= -->
+      <section id="screen-clock-config" class="screen">
+        <header class="screen-header">
+          <button class="btn-home" data-home aria-label="Inicio">⌂</button>
+          <div>
+            <span class="eyebrow">RELOJ DE AJEDREZ</span>
+            <h2>Configuración</h2>
+          </div>
+        </header>
+        <main class="config-content">
+          <div class="config-card">
+            <div class="section-title">
+              <span>1</span>
+              <h3>Tiempo inicial</h3>
+            </div>
+            <div class="player-time-block">
+              <div class="player-time-name">Jugador 1 — Blancas</div>
+              <div class="time-inputs">
+                <label>
+                  <span>HH</span>
+                  <input id="cfg-p1-hours" type="number" value="1" min="0" />
+                </label>
+                <label>
+                  <span>MM</span>
+                  <input
+                    id="cfg-p1-minutes"
+                    type="number"
+                    value="30"
+                    min="1"
+                    max="60"
+                    step="1"
+                  />
+                </label>
+                <label>
+                  <span>SS</span>
+                  <input
+                    id="cfg-p1-seconds"
+                    type="number"
+                    value="0"
+                    min="1"
+                    max="60"
+                    step="1"
+                  />
+                </label>
+              </div>
+            </div>
+            <div class="player-time-block">
+              <div class="player-time-name">Jugador 2 — Negras</div>
+              <div class="time-inputs">
+                <label>
+                  <span>HH</span>
+                  <input id="cfg-p2-hours" type="number" value="1" min="0" />
+                </label>
+                <label>
+                  <span>MM</span>
+                  <input
+                    id="cfg-p2-minutes"
+                    type="number"
+                    value="30"
+                    min="1"
+                    max="60"
+                    step="1"
+                  />
+                </label>
+                <label>
+                  <span>SS</span>
+                  <input
+                    id="cfg-p2-seconds"
+                    type="number"
+                    value="0"
+                    min="1"
+                    max="60"
+                    step="1"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="config-card">
+            <div class="section-title">
+              <span>2</span>
+              <h3>Modo de juego</h3>
+            </div>
+            <div class="mode-selector">
+              <label class="mode-option">
+                <input type="radio" name="clock-mode" value="mati" checked />
+                <span class="mode-box">
+                  <strong>A lo MATI</strong>
+                  <small>Bonus automático por presión</small>
+                </span>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="clock-mode" value="libre" />
+                <span class="mode-box">
+                  <strong>LIBRE</strong>
+                  <small>Tiempo + incremento configurable</small>
+                </span>
+              </label>
+            </div>
+          </div>
+          <!-- Configuración que aparecerá cuando se seleccione LIBRE -->
+          <div id="free-options" class="config-card hidden">
+            <div class="section-title">
+              <span>3</span>
+              <h3>Opciones LIBRE</h3>
+            </div>
+            <div class="subsection">
+              <label class="toggle-row">
+                <span>
+                  <strong>Usar incremento</strong>
+                  <small>Agregar tiempo en cada movimiento</small>
+                </span>
+                <input id="cfg-increment-enabled" type="checkbox" />
+              </label>
+              <div id="increment-options" class="increment-panel hidden">
+                <div class="mini-grid">
+                  <label>
+                    <span>Incremento</span>
+                    <input
+                      id="cfg-increment"
+                      type="number"
+                      min="0"
+                      max="59"
+                      value="0"
+                      inputmode="numeric"
+                    />
+                  </label>
+                  <label>
+                    <span>Tipo</span>
+                    <select id="cfg-increment-type">
+                      <option value="fischer">Fischer</option>
+                      <option value="bronstein">Bronstein</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="config-card">
+            <div class="section-title">
+              <span>4</span>
+              <h3>Cartas / Bonus manual</h3>
+            </div>
+            <label class="toggle-row">
+              <span>
+                <strong>Activar cartas</strong>
+                <small>Permite utilizar +1, +2 y +3 minutos</small>
+              </span>
+              <input id="cfg-cards" type="checkbox" />
+            </label>
+          </div>
+          <button id="btn-start-config" class="primary-button">
+            INICIAR PARTIDA
+          </button>
+        </main>
+      </section>
+      <!-- =========================================================
+         PANTALLA DE EJECUCIÓN DEL RELOJ
+         ========================================================= -->
+      <section id="screen-clock" class="screen clock-screen">
+        <canvas id="clock-chart" class="clock-chart"></canvas>
+        <div id="zone-player-1" class="player-zone player-top">
+          <div class="player-info">
+            <span class="player-label">JUGADOR 1</span>
+            <span id="player-1-status" class="turn-status">ESPERANDO</span>
+          </div>
+          <div class="clock-display">
+            <div id="clock-p1-total" class="total-time">01:30:00</div>
+            <div id="clock-p1-move" class="move-time">00:00</div>
+          </div>
+          <div id="bonus-p1" class="bonus-flash">BONUS</div>
+        </div>
+        <div class="clock-controls">
+          <button
+            id="btn-play"
+            class="clock-control play"
+            aria-label="Iniciar o reanudar"
+          >
+            ▶
+          </button>
+          <button id="btn-pause" class="clock-control" aria-label="Pausar">
+            ❚❚
+          </button>
+          <button
+            id="btn-finish"
+            class="clock-control finish"
+            aria-label="Finalizar"
+          >
+            ■
+          </button>
+        </div>
+        <div class="clock-home-special">
+          <button class="btn-home clock-home" data-home aria-label="Inicio">
+            ⌂
+          </button>
+        </div>
+        <div class="manual-bonus" id="manual-bonus">
+          <button class="bonus-button" data-bonus="1">+1</button>
+          <button class="bonus-button" data-bonus="2">+2</button>
+          <button class="bonus-button" data-bonus="3">+3</button>
+        </div>
+        <div id="zone-player-2" class="player-zone player-bottom">
+          <div class="player-info">
+            <span class="player-label">JUGADOR 2</span>
+            <span id="player-2-status" class="turn-status">ESPERANDO</span>
+          </div>
+          <div class="clock-display">
+            <div id="clock-p2-total" class="total-time">01:30:00</div>
+            <div id="clock-p2-move" class="move-time">00:00</div>
+          </div>
+          <div id="bonus-p2" class="bonus-flash">BONUS</div>
+        </div>
+        <!-- =========================================================
+     CONFIRMACIÓN DE FINALIZACIÓN
+     ========================================================= -->
+        <div id="finish-confirm" class="floating-message hidden">
+          <div class="finish-confirm-content">
+            <div class="finish-confirm-title">¿FINALIZAR PARTIDA?</div>
+            <div class="finish-confirm-text">¿Querés terminar la partida?</div>
+            <div class="finish-confirm-buttons">
+              <button
+                id="btn-finish-cancel"
+                type="button"
+                class="finish-confirm-cancel"
+              >
+                CANCELAR
+              </button>
+              <button
+                id="btn-finish-confirm"
+                type="button"
+                class="finish-confirm-ok"
+              >
+                FINALIZAR
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="timeout-message" class="timeout-overlay hidden">
+          <div>TIME OUT</div>
+          <small>Tiempo agotado</small>
+        </div>
+      </section>
+      <!-- =========================================================
+         PANTALLA DE ANOTADOR — PRIMER PROTOTIPO
+         La funcionalidad completa se incorporará en app.js.
+         ========================================================= -->
+      <section id="screen-score-config" class="screen">
+        <header class="screen-header">
+          <button class="btn-home" data-home aria-label="Inicio">⌂</button>
+          <div>
+            <span class="eyebrow">ANOTADOR</span>
+            <h2>Configuración</h2>
+          </div>
+        </header>
+        <main class="config-content">
+          <div class="config-card">
+            <div class="section-title">
+              <span>1</span>
+              <h3>Partidas simultáneas</h3>
+            </div>
+            <div class="match-selector">
+              <button class="match-number active">1</button>
+              <button class="match-number">2</button>
+              <button class="match-number">3</button>
+              <button class="match-number">4</button>
+            </div>
+            <div class="player-fields">
+              <label>
+                <span>♔ Blancas</span>
+                <input
+                  id="cfg-white-name"
+                  type="text"
+                  placeholder="Jugador Blancas"
+                />
+              </label>
+              <label>
+                <span>♚ Negras</span>
+                <input
+                  id="cfg-black-name"
+                  type="text"
+                  placeholder="Jugador Negras"
+                />
+              </label>
+              <label>
+                <span>ELO Blancas</span>
+                <input
+                  id="cfg-white-elo"
+                  type="number"
+                  min="0"
+                  max="4000"
+                  placeholder="ELO"
+                  inputmode="numeric"
+                />
+              </label>
+              <label>
+                <span>Nacionalidad Blancas</span>
+                <input
+                  id="cfg-white-nationality"
+                  type="text"
+                  placeholder="ARG"
+                  maxlength="3"
+                />
+              </label>
+              <label>
+                <span>ELO Negras</span>
+                <input
+                  id="cfg-black-elo"
+                  type="number"
+                  min="0"
+                  max="4000"
+                  placeholder="ELO"
+                  inputmode="numeric"
+                />
+              </label>
+              <label>
+                <span>Nacionalidad Negras</span>
+                <input
+                  id="cfg-black-nationality"
+                  type="text"
+                  placeholder="ARG"
+                  maxlength="3"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="config-card2">
+            <div class="section-title">
+              <span>2</span>
+              <h3>Datos de partida</h3>
+            </div>
+            <div class="mini-grid">
+              <label>
+                <span>Tiempo</span>
+                <input id="cfg-game-time" type="text" value="01:30:00" />
+              </label>
+              <label>
+                <span>Ronda</span>
+                <input id="cfg-round" type="number" value="1" min="1" />
+              </label>
+            </div>
+            <div class="player-fields game-data-fields">
+              <label>
+                <span>Fecha</span>
+                <input id="cfg-date" type="text" placeholder="DD-MM-AA" />
+              </label>
+              <label id="game-place-field">
+                <span>Lugar</span>
+                <input
+                  id="cfg-place"
+                  type="text"
+                  placeholder="Lugar de la partida"
+                />
+              </label>
+              <label id="competition-type-field">
+                <span>Tipo de competición</span>
+                <select id="cfg-competition-type">
+                  <option value="amistoso">Amistoso</option>
+                  <option value="torneo">Torneo</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <button id="btn-start-score" class="primary-button">
+            ABRIR ANOTADOR
+          </button>
+        </main>
+      </section>
+      <!-- =========================================================
+         PANTALLA DEL ANOTADOR
+         ========================================================= -->
+      <!-- =========================================================
+     PANTALLA DE ANOTADOR
+     ========================================================= -->
+      <section id="screen-score" class="screen score-screen">
+        <!-- =======================================================
+       CABECERA
+       ======================================================= -->
+        <header class="score-header">
+          <button class="btn-home" data-home aria-label="Inicio">⌂</button>
+          <div class="score-game-selector">
+            <button class="score-game active">P1</button>
+            <button class="score-game">P2</button>
+            <button class="score-game">P3</button>
+            <button class="score-game">P4</button>
+          </div>
+        </header>
+        <!-- =======================================================
+       RELOJ PROPIO DEL ANOTADOR
+       ======================================================= -->
+        <div class="score-clock">
+          <!-- Tiempo total de la partida -->
+          <div>01:30:00</div>
+          <!-- Tiempo del movimiento actual -->
+          <span> 00:00.00 </span>
+        </div>
+        <!-- =======================================================
+       ZONA CENTRAL
+       IZQUIERDA = PLANILLA
+       DERECHA = INTRODUCCIÓN DE JUGADA
+       ======================================================= -->
+        <div class="score-main">
+          <!-- =====================================================
+         COLUMNA IZQUIERDA
+         MOVIMIENTOS
+         ===================================================== -->
+          <div class="notation-table-container">
+            <table class="notation-table">
+              <thead>
+                <tr>
+                  <th>MOV.</th>
+                  <th>BLANCAS</th>
+                  <th>NEGRAS</th>
+                  <th>DUR. BLANCAS</th>
+                  <th>DUR. NEGRAS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--
+            anotador.js agrega aquí
+            los movimientos.
+          -->
+              </tbody>
+            </table>
+          </div>
+          <!-- =====================================================
+         COLUMNA DERECHA
+         INTRODUCCIÓN DE JUGADAS
+         ===================================================== -->
+          <div class="score-input-panel">
+            <!-- ===================================================
+           PREVISUALIZACIÓN
+           =================================================== -->
+            <div class="notation-preview" id="notation-preview">—</div>
+            <!-- ===================================================
+           PIEZAS
+           =================================================== -->
+            <div class="piece-row">
+              <button type="button" aria-label="Peón">♟</button>
+              <button type="button" aria-label="Caballo">♞</button>
+              <button type="button" aria-label="Alfil">♝</button>
+              <button type="button" aria-label="Torre">♜</button>
+              <button type="button" aria-label="Dama">♛</button>
+              <button type="button" aria-label="Rey">♚</button>
+            </div>
+            <!-- ===================================================
+           ACCIONES DE NOTACIÓN
+           =================================================== -->
+            <div class="action-row">
+              <button type="button" aria-label="Captura">x</button>
+              <button type="button" aria-label="Jaque">+</button>
+              <button type="button" aria-label="Mate">#</button>
+              <button type="button" aria-label="Enroque corto">O-O</button>
+              <button type="button" aria-label="Enroque largo">O-O-O</button>
+            </div>
+            <!-- ===================================================
+           TABLERO / SELECCIÓN DE DESTINO
+           =================================================== -->
+            <div class="board-selector">
+              <div class="board-row-label">8</div>
+              <div class="board-grid">
+                <!-- FILA 8 -->
+                <button type="button" data-square="a8">a8</button>
+                <button type="button" data-square="b8">b8</button>
+                <button type="button" data-square="c8">c8</button>
+                <button type="button" data-square="d8">d8</button>
+                <button type="button" data-square="e8">e8</button>
+                <button type="button" data-square="f8">f8</button>
+                <button type="button" data-square="g8">g8</button>
+                <button type="button" data-square="h8">h8</button>
+                <!-- FILA 7 -->
+                <button type="button" data-square="a7">a7</button>
+                <button type="button" data-square="b7">b7</button>
+                <button type="button" data-square="c7">c7</button>
+                <button type="button" data-square="d7">d7</button>
+                <button type="button" data-square="e7">e7</button>
+                <button type="button" data-square="f7">f7</button>
+                <button type="button" data-square="g7">g7</button>
+                <button type="button" data-square="h7">h7</button>
+                <!-- FILA 6 -->
+                <button type="button" data-square="a6">a6</button>
+                <button type="button" data-square="b6">b6</button>
+                <button type="button" data-square="c6">c6</button>
+                <button type="button" data-square="d6">d6</button>
+                <button type="button" data-square="e6">e6</button>
+                <button type="button" data-square="f6">f6</button>
+                <button type="button" data-square="g6">g6</button>
+                <button type="button" data-square="h6">h6</button>
+                <!-- FILA 5 -->
+                <button type="button" data-square="a5">a5</button>
+                <button type="button" data-square="b5">b5</button>
+                <button type="button" data-square="c5">c5</button>
+                <button type="button" data-square="d5">d5</button>
+                <button type="button" data-square="e5">e5</button>
+                <button type="button" data-square="f5">f5</button>
+                <button type="button" data-square="g5">g5</button>
+                <button type="button" data-square="h5">h5</button>
+                <!-- FILA 4 -->
+                <button type="button" data-square="a4">a4</button>
+                <button type="button" data-square="b4">b4</button>
+                <button type="button" data-square="c4">c4</button>
+                <button type="button" data-square="d4">d4</button>
+                <button type="button" data-square="e4">e4</button>
+                <button type="button" data-square="f4">f4</button>
+                <button type="button" data-square="g4">g4</button>
+                <button type="button" data-square="h4">h4</button>
+                <!-- FILA 3 -->
+                <button type="button" data-square="a3">a3</button>
+                <button type="button" data-square="b3">b3</button>
+                <button type="button" data-square="c3">c3</button>
+                <button type="button" data-square="d3">d3</button>
+                <button type="button" data-square="e3">e3</button>
+                <button type="button" data-square="f3">f3</button>
+                <button type="button" data-square="g3">g3</button>
+                <button type="button" data-square="h3">h3</button>
+                <!-- FILA 2 -->
+                <button type="button" data-square="a2">a2</button>
+                <button type="button" data-square="b2">b2</button>
+                <button type="button" data-square="c2">c2</button>
+                <button type="button" data-square="d2">d2</button>
+                <button type="button" data-square="e2">e2</button>
+                <button type="button" data-square="f2">f2</button>
+                <button type="button" data-square="g2">g2</button>
+                <button type="button" data-square="h2">h2</button>
+                <!-- FILA 1 -->
+                <button type="button" data-square="a1">a1</button>
+                <button type="button" data-square="b1">b1</button>
+                <button type="button" data-square="c1">c1</button>
+                <button type="button" data-square="d1">d1</button>
+                <button type="button" data-square="e1">e1</button>
+                <button type="button" data-square="f1">f1</button>
+                <button type="button" data-square="g1">g1</button>
+                <button type="button" data-square="h1">h1</button>
+              </div>
+            </div>
+            <div class="score-board-actions">
+              <button
+                id="btn-score-revisar"
+                class="secondary-button"
+                type="button"
+              >
+                REVISAR
+              </button>
+
+              <button
+                id="btn-score-que-juego"
+                class="secondary-button"
+                type="button"
+              >
+                ¿QUÉ JUEGO?
+              </button>
+
+              <button
+                id="btn-score-clear"
+                class="secondary-button"
+                type="button"
+              >
+                CLEAR
+              </button>
+
+              <button
+                id="btn-score-cargar"
+                class="primary-button compact"
+                type="button"
+              >
+                CARGAR
+              </button>
+
+              <button
+                id="btn-score-desc-parcial"
+                class="secondary-button"
+                type="button"
+              >
+                DESC. PARCIAL
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- =======================================================
+       ACCIONES DE LA PARTIDA
+       ======================================================= -->
+        <div class="score-actions">
+          <button
+            id="btn-score-finalizar"
+            class="primary-button compact"
+            type="button"
+          >
+            FINALIZAR
+          </button>
+        </div>
+      </section>
+      <!-- =========================================================
+         JS
+         ========================================================= -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+      <script src="app.js"></script>
+      <script src="anotador.js"></script>
+    </div>
+  </body>
+</html>
