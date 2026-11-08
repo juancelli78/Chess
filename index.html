@@ -50,6 +50,7 @@
           </p>
         </div>
       </section>
+
       <!-- =========================================================
          PANTALLA DE CONFIGURACIÓN DEL RELOJ
          ========================================================= -->
@@ -152,7 +153,6 @@
               </label>
             </div>
           </div>
-          <!-- Configuración que aparecerá cuando se seleccione LIBRE -->
           <div id="free-options" class="config-card hidden">
             <div class="section-title">
               <span>3</span>
@@ -208,6 +208,7 @@
           </button>
         </main>
       </section>
+
       <!-- =========================================================
          PANTALLA DE EJECUCIÓN DEL RELOJ
          ========================================================= -->
@@ -264,9 +265,6 @@
           </div>
           <div id="bonus-p2" class="bonus-flash">BONUS</div>
         </div>
-        <!-- =========================================================
-     CONFIRMACIÓN DE FINALIZACIÓN
-     ========================================================= -->
         <div id="finish-confirm" class="floating-message hidden">
           <div class="finish-confirm-content">
             <div class="finish-confirm-title">¿FINALIZAR PARTIDA?</div>
@@ -294,9 +292,9 @@
           <small>Tiempo agotado</small>
         </div>
       </section>
+
       <!-- =========================================================
-         PANTALLA DE ANOTADOR — PRIMER PROTOTIPO
-         La funcionalidad completa se incorporará en app.js.
+         PANTALLA DE CONFIGURACIÓN DEL ANOTADOR
          ========================================================= -->
       <section id="screen-score-config" class="screen">
         <header class="screen-header">
@@ -419,98 +417,97 @@
           </button>
         </main>
       </section>
+
       <!-- =========================================================
-         PANTALLA DEL ANOTADOR
+         PANTALLA DEL ANOTADOR (NUEVO LAYOUT)
          ========================================================= -->
-      <!-- =========================================================
-     PANTALLA DE ANOTADOR
-     ========================================================= -->
       <section id="screen-score" class="screen score-screen">
-        <!-- =======================================================
-       CABECERA
-       ======================================================= -->
         <header class="score-header">
-          <button class="btn-home" data-home aria-label="Inicio">⌂</button>
-          <div class="score-game-selector">
-            <button class="score-game active">P1</button>
-            <button class="score-game">P2</button>
-            <button class="score-game">P3</button>
-            <button class="score-game">P4</button>
+          <div class="score-topbar">
+            <button class="btn-home" data-home aria-label="Inicio">⌂</button>
+
+            <div class="score-game-selector" aria-label="Partidas simultáneas">
+              <button type="button" class="score-game active" data-game="P1">
+                P1
+              </button>
+              <button type="button" class="score-game" data-game="P2">
+                P2
+              </button>
+              <button type="button" class="score-game" data-game="P3">
+                P3
+              </button>
+              <button type="button" class="score-game" data-game="P4">
+                P4
+              </button>
+            </div>
+
+            <div class="score-clock">
+              <div class="clock-total">
+                <span class="clock-label">TOTAL</span>
+                <strong id="clock-total-value">00:00:00</strong>
+              </div>
+
+              <div class="clock-move">
+                <span class="clock-label">JUGADA</span>
+                <strong id="clock-move-value">00:00.00</strong>
+              </div>
+            </div>
           </div>
         </header>
-        <!-- =======================================================
-       RELOJ PROPIO DEL ANOTADOR
-       ======================================================= -->
-        <div class="score-clock">
-          <!-- Tiempo total de la partida -->
-          <div>01:30:00</div>
-          <!-- Tiempo del movimiento actual -->
-          <span> 00:00.00 </span>
-        </div>
-        <!-- =======================================================
-       ZONA CENTRAL
-       IZQUIERDA = PLANILLA
-       DERECHA = INTRODUCCIÓN DE JUGADA
-       ======================================================= -->
+
+        <!-- Indicador de turno con tamaño triplicado -->
+        <div id="turn-indicator" class="turn-indicator">Juegan Blancas</div>
+
         <div class="score-main">
-          <!-- =====================================================
-         COLUMNA IZQUIERDA
-         MOVIMIENTOS
-         ===================================================== -->
-          <div class="notation-table-container">
-            <table class="notation-table">
-              <thead>
-                <tr>
-                  <th>MOV.</th>
-                  <th>BLANCAS</th>
-                  <th>NEGRAS</th>
-                  <th>DUR. BLANCAS</th>
-                  <th>DUR. NEGRAS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!--
-            anotador.js agrega aquí
-            los movimientos.
-          -->
-              </tbody>
-            </table>
+          <!-- Columna Izquierda: Planilla y Controles de Estado -->
+          <div class="score-left-panel">
+            <div class="notation-table-container">
+              <table class="notation-table">
+                <thead>
+                  <tr>
+                    <th>MOV.</th>
+                    <th>BLANCAS</th>
+                    <th>NEGRAS</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="left-action-buttons">
+              <button
+                id="btn-score-revisar"
+                class="secondary-button"
+                type="button"
+              >
+                REVISAR
+              </button>
+              <button
+                id="btn-score-que-juego"
+                class="secondary-button"
+                type="button"
+              >
+                ¿QUÉ JUEGO?
+              </button>
+              <button
+                id="btn-score-no-la-vi"
+                class="secondary-button"
+                type="button"
+              >
+                NO LO VI
+              </button>
+              <button
+                id="btn-score-borrar"
+                class="secondary-button"
+                type="button"
+              >
+                BORRAR ULT. JUG.
+              </button>
+            </div>
           </div>
-          <!-- =====================================================
-         COLUMNA DERECHA
-         INTRODUCCIÓN DE JUGADAS
-         ===================================================== -->
+
+          <!-- Columna Derecha: Tablero pegado arriba, previsualización, piezas, acciones y botones de carga/foto/parcial -->
           <div class="score-input-panel">
-            <!-- ===================================================
-           PREVISUALIZACIÓN
-           =================================================== -->
-            <div class="notation-preview" id="notation-preview">—</div>
-            <!-- ===================================================
-           PIEZAS
-           =================================================== -->
-            <div class="piece-row">
-              <button type="button" aria-label="Peón">♟</button>
-              <button type="button" aria-label="Caballo">♞</button>
-              <button type="button" aria-label="Alfil">♝</button>
-              <button type="button" aria-label="Torre">♜</button>
-              <button type="button" aria-label="Dama">♛</button>
-              <button type="button" aria-label="Rey">♚</button>
-            </div>
-            <!-- ===================================================
-           ACCIONES DE NOTACIÓN
-           =================================================== -->
-            <div class="action-row">
-              <button type="button" aria-label="Captura">x</button>
-              <button type="button" aria-label="Jaque">+</button>
-              <button type="button" aria-label="Mate">#</button>
-              <button type="button" aria-label="Enroque corto">O-O</button>
-              <button type="button" aria-label="Enroque largo">O-O-O</button>
-            </div>
-            <!-- ===================================================
-           TABLERO / SELECCIÓN DE DESTINO
-           =================================================== -->
             <div class="board-selector">
-              <div class="board-row-label">8</div>
               <div class="board-grid">
                 <!-- FILA 8 -->
                 <button type="button" data-square="a8">a8</button>
@@ -586,31 +583,28 @@
                 <button type="button" data-square="h1">h1</button>
               </div>
             </div>
+
+            <div class="notation-preview" id="notation-preview">—</div>
+
+            <div class="piece-row">
+              <button type="button" aria-label="Peón">♟</button>
+              <button type="button" aria-label="Caballo">♞</button>
+              <button type="button" aria-label="Alfil">♝</button>
+              <button type="button" aria-label="Torre">♜</button>
+              <button type="button" aria-label="Dama">♛</button>
+              <button type="button" aria-label="Rey">♚</button>
+            </div>
+
+            <div class="action-row">
+              <button type="button" aria-label="Captura">x</button>
+              <button type="button" aria-label="Jaque">+</button>
+              <button type="button" aria-label="Mate">#</button>
+              <button type="button" aria-label="Enroque corto">O-O</button>
+              <button type="button" aria-label="Enroque largo">O-O-O</button>
+            </div>
+
+            <!-- Orden exacto solicitado: CARGAR, SACAR FOTO, DESC PARCIAL -->
             <div class="score-board-actions">
-              <button
-                id="btn-score-revisar"
-                class="secondary-button"
-                type="button"
-              >
-                REVISAR
-              </button>
-
-              <button
-                id="btn-score-que-juego"
-                class="secondary-button"
-                type="button"
-              >
-                ¿QUÉ JUEGO?
-              </button>
-
-              <button
-                id="btn-score-clear"
-                class="secondary-button"
-                type="button"
-              >
-                CLEAR
-              </button>
-
               <button
                 id="btn-score-cargar"
                 class="primary-button compact"
@@ -618,20 +612,25 @@
               >
                 CARGAR
               </button>
-
+              <button
+                id="btn-score-foto"
+                class="secondary-button"
+                type="button"
+              >
+                SACAR FOTO
+              </button>
               <button
                 id="btn-score-desc-parcial"
                 class="secondary-button"
                 type="button"
               >
-                DESC. PARCIAL
+                DESC PARCIAL
               </button>
             </div>
           </div>
         </div>
-        <!-- =======================================================
-       ACCIONES DE LA PARTIDA
-       ======================================================= -->
+
+        <!-- Abajo de todo ocupando todo el ancho -->
         <div class="score-actions">
           <button
             id="btn-score-finalizar"
@@ -642,9 +641,7 @@
           </button>
         </div>
       </section>
-      <!-- =========================================================
-         JS
-         ========================================================= -->
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
       <script src="app.js"></script>
       <script src="anotador.js"></script>
